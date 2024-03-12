@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  jenkins:
+    image: jenkins/jenkins:latest
+    container_name: jenkins
+    ports:
+      - "8080:8080"  # Mapping host port 8080 to container port 8080 for accessing Jenkins UI
+    volumes:
+      - "$PWD/jenkins_home:/var/jenkins_home"  # Mounting a volume for Jenkins data persistence
+    networks:
+      - net  # Attaching the container to the defined network
+
+  remote_host:
+    container_name: remote_host
+    image: remote_host
+    build:
+      context: ubu
+    networks:
+      - net
+
+
+
+networks:
+  net:  # Defining a network for inter-container communication
+
